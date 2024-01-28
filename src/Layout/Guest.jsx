@@ -5,6 +5,7 @@ const Guest = (props) => {
   return (
     <>
     <Navbar />
+    <Login />
     </>
   );
 };
