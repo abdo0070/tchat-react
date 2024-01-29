@@ -4,8 +4,8 @@ import Login from "../pages/Login";
 const Guest = (props) => {
   return (
     <>
-    <Navbar />
-    <Login />
+      <Navbar />
+      <Login />
     </>
   );
 };

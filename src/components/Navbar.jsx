@@ -11,16 +11,16 @@ const Navbar = (props) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex justify-between items-center px-12 h-16 lg:py-10 bg-sky-500">
-      <Logo />
+    <Logo />
       <div
-        className={`absolute top-[64px] left-0 text-white max-lg:bg-slate-500 w-full flex flex-col gap-4 py-2 text-lg font-semibold items-center lg:static lg:flex-row lg:justify-between lg:mx-10 ${
-          open ? "top-16 " : "top-[-490px]"
+        className={`absolute top-16 left-0 text-white max-lg:bg-slate-500 w-full flex flex-col gap-4 py-2 text-lg font-semibold items-center lg:static lg:flex-row lg:justify-between lg:mx-10 ${
+          open ? "top-[16] " : "top-[-490px]"
         }`}
       >
         <ul className="flex flex-col items-center gap-4 lg:flex-row lg:gap-8">
           {items.map((i) => {
             return (
-              <li className="hover:text-orange-400">
+              <li key={i.name} className="hover:text-orange-400">
                 <a href={i.link}>{i.name}</a>
               </li>
             );
@@ -39,6 +39,7 @@ const Navbar = (props) => {
         className="flex items-center justify-center lg:hidden"
         onClick={() => {
           setOpen(!open);
+          console.log(open);
         }}
       >
         <i className="fa-solid fa-bars fa-lg"></i>

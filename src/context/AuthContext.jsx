@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-const AuthContext = React.createContext();
+export const AuthContext = createContext();
+const AuthProvider = ({ children }) => {
+  const [currentUser, setcurrentUser] = useState();
+  const updateUser = (user) => {
+    setcurrentUser(user);
+  };
+  return (
+    <AuthContext.Provider value={{currentUser,updateUser}}>{children}</AuthContext.Provider>
+  );
+};
 
-const AuthContextProvidor = ({children}) => {
-    const [currentUser,setcurrentUser] = useState({});
-
-    useEffect(() => {
-        // get the current user
-    },[]);
-    
-    return <AuthContext.Provider value={currentUser}>
-
-    </AuthContext.Provider>
-}
+export default AuthProvider;
