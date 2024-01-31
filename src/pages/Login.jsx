@@ -1,20 +1,32 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "./../context/AuthContext";
+import { axiosAPI } from "../api/Axios";
 
 const Login = () => {
-  const { currentUser, updateUser } = useContext(AuthContext);
+  const { token, updateToken } = useContext(AuthContext);
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // make the auth with the backend and set the user state
-    updateUser({
-      email,
-      password,
-    });
-    console.log(currentUser);
+    try {
+      const res = await axiosAPI.post(
+        "/login",
+        { email, password },
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+      const token = res?.data?.token; // the token is global .
+      // localStorage.setItem('token', token);
+       updateToken(token);
+    } catch (error) {
+      alert('Wrong Email Or Password')
+      console.log(error?.response);
+    }
   };
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="bg-gray-200 rounded-xl p-5 max-w-5xl flex justify-between flex-row mx-2 rounded">

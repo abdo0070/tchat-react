@@ -2,12 +2,12 @@ import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
-  const [currentUser, setcurrentUser] = useState();
-  const updateUser = (user) => {
-    setcurrentUser(user);
+  const [token, setToken] = useState(null);
+  const updateToken = (user) => {
+    setToken(user);
   };
   return (
-    <AuthContext.Provider value={{currentUser,updateUser}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{token,updateToken}}>{children}</AuthContext.Provider>
   );
 };
 
