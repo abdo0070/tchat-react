@@ -1,38 +1,44 @@
-import { useState } from "react";
+import { useContext, useEffect } from "react";
 import User from "./User";
+import { axiosAPI } from "../api/Axios";
+import { AuthContext } from "../context/AuthContext";
+import { FreindsContext } from "../context/FriendContext";
 
 const Chats = () => {
-    const [users , setUsers] = useState([
-        {
-            name : "Omar",
-            image : "logo/logo-color.svg",
-            last_message : "hi"
+  const { token, updateToken } = useContext(AuthContext);
+  const { freinds, updateFreinds } = useContext(FreindsContext);
+  useEffect(() => {
+    // get freinds from the backend;
+    console.log("The Token is : ", token);
+    axiosAPI
+      .get("/users", {
+        headers: {
+          Authorization: "Bearer " + token,
         },
-        {
-            name : "Ahmed",
-            image : "logo/logo-black.svg",
-            last_message : "where r u pro ?"
-        },
-        {
-            name : "Omar",
-            image : "logo/logo-white.svg",
-            last_message : "hahaha"
-        },
-        {
-            name : "Omar",
-            image : "logo/logo-color.svg",
-            last_message : "i'm good what about u ?"
-        },
-    ]);
+        withCredentials: true,
+      })
+      .then((res) => {
+        updateFreinds(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        updateToken(null)
+      });
+  }, []);
+
   return (
-    <div className="flex flex-col">
-      {
-        users.map( (u,i) => {
-            return <>
-            <User name={u.name} last_message={u.last_message} image={u.image}/>
-            </>
-        })
-      }
+    <div className="overflow-y-auto h-full">
+      {freinds?.map((f, i) => {
+        return (
+          <>
+            <User
+              name={f.user_name}
+              last_message={f.last_message || ""}
+              image="/logo/logo-black.svg"
+            />
+          </>
+        );
+      })}
     </div>
   );
 };
