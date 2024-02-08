@@ -9,9 +9,8 @@ const Chats = () => {
   const { freinds, updateFreinds } = useContext(FreindsContext);
   useEffect(() => {
     // get freinds from the backend;
-    console.log("The Token is : ", token);
     axiosAPI
-      .get("/users", {
+      .get("/freinds", {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -19,10 +18,10 @@ const Chats = () => {
       })
       .then((res) => {
         updateFreinds(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
-        updateToken(null)
+        // updateToken(null)
+        console.log(err);
       });
   }, []);
 
@@ -30,13 +29,12 @@ const Chats = () => {
     <div className="overflow-y-auto h-full">
       {freinds?.map((f, i) => {
         return (
-          <>
-            <User
-              name={f.user_name}
-              last_message={f.last_message || ""}
-              image="/logo/logo-black.svg"
-            />
-          </>
+          <User
+            key={i}
+            name={f.user_name}
+            last_message={f.last_message || "Hey"}
+            image="/logo/logo-black.svg"
+          />
         );
       })}
     </div>

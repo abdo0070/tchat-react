@@ -3,11 +3,11 @@ import { AuthContext } from "./../context/AuthContext";
 import { axiosAPI } from "../api/Axios";
 
 const Login = () => {
-  const { token, updateToken } = useContext(AuthContext);
+  const { user , token, updateToken } = useContext(AuthContext);
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
 
-  const handleSubmit = async (e) => {
+  const Login = async (e) => {
     e.preventDefault();
     // make the auth with the backend and set the user state
     try {
@@ -36,7 +36,7 @@ const Login = () => {
           <form
             className="flex flex-col items-center gap-5"
             action=""
-            onSubmit={handleSubmit}
+            onSubmit={Login}
           >
             <div className="relative text-black">
               <div className="absolute top-1 left-1 bg-white-medium rounded-full p-2 flex items-center justify-center text-blue-300">

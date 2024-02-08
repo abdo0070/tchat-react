@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { FreindsContext } from "../context/FriendContext";
+import { allFreind, searchForFreind } from "../helpers/Freinds";
 
 const Search = () => {
-  const [search, setSearch] = useState();
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(search);
+  const { token } = useContext(AuthContext);
+  const { updateFreinds } = useContext(FreindsContext);
+  const handleSearch = async (e) => {
+    try {
+      const data = await searchForFreind(e.target.value,token);
+      updateFreinds(data || []);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="border-solid p-2 border-b-2 border-sky-500">
-      <form onSubmit={handleSubmit}>
-        <input
-          className=" placeholder:text-white outline-none w-full bg-transparent"
-          placeholder="Find User"
-          type="text"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </form>
+      <input
+        className=" placeholder:text-white outline-none text-white text-lg w-full bg-transparent"
+        placeholder="Find User"
+        type="text"
+        onChange={handleSearch}
+      />
     </div>
   );
 };
