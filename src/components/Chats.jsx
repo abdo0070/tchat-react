@@ -18,6 +18,7 @@ const Chats = () => {
       })
       .then((res) => {
         updateFreinds(res.data);
+        console.log("The Freinds List",res.data);
       })
       .catch((err) => {
         // updateToken(null)
@@ -32,6 +33,7 @@ const Chats = () => {
           <User
             key={i}
             name={f.user_name}
+            room_id={f.room_id}
             last_message={f.last_message || "Hey"}
             image="/logo/logo-black.svg"
           />

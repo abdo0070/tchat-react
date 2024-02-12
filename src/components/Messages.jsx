@@ -3,12 +3,11 @@ import Message from "./Message";
 import { axiosAPI } from "./../api/Axios";
 import { AuthContext } from "../context/AuthContext";
 
-const Messages = () => {
+const Messages = ({room_id}) => {
   const { token } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     // get freinds from the backend;
-    const room_id = 1;
     axiosAPI
       .get(`/messages/${room_id}`, {
         headers: {
@@ -22,11 +21,11 @@ const Messages = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [room_id]);
   return (
     <div className="bg-sky-100 overflow-y-scroll h-full">
       {messages.map((m, i) => {
-        return <Message msg={m} />;
+        return <Message key={i} msg={m} />;
       })}
     </div>
   );

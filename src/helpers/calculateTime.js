@@ -8,7 +8,6 @@ export function calcTime(timestamp) {
   // Calculate the difference in minutes
   const timeInMinutes = (currentTime - givenTimestamp) / (1000 * 60);
 
-  console.log(timeInMinutes);
   if (timeInMinutes < 60) {
     return `${parseInt(timeInMinutes)} minutes ago`;
   } else if (timeInMinutes < 60 * 24) {

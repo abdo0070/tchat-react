@@ -7,10 +7,8 @@ const Sidebar = () => {
   return (
     <div className="h-full flex flex-col">
       <UserInfo />
-      <FreindProvidor>
         <Search />
         <Chats />
-      </FreindProvidor>
     </div>
   );
 };
