@@ -19,7 +19,7 @@ const Messages = ({room_id}) => {
         setMessages(res?.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [room_id]);
   return (

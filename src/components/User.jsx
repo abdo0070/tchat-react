@@ -1,8 +1,27 @@
 import { useContext } from "react";
 import { FreindsContext } from "../context/FriendContext";
+import { axiosAPI } from "../api/Axios";
+import { AuthContext } from "../context/AuthContext";
 
 const User = ({ name, room_id, last_message, image }) => {
   const { curChat,updateCurChat } = useContext(FreindsContext);
+  const { token } = useContext(AuthContext);
+
+  axiosAPI
+      .get("/rooms", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("added the room succfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
   return (
     <div
       onClick={() => {

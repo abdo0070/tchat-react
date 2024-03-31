@@ -18,6 +18,11 @@ export const searchForFreind = async (freind_name, token) => {
   }
 };
 
+
+export const addFreind = async (token,user_id,freind_id) => {
+
+}
+
 export const allFreind = async (token) => {
   try {
     const res = await axiosAPI.get("freinds", {
@@ -28,6 +33,6 @@ export const allFreind = async (token) => {
     });
     return res.data;
   } catch (error) {
-    return error;
+    // return error;
   }
 };

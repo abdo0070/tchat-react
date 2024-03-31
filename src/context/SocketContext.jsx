@@ -8,6 +8,9 @@ export function SocketProvidor({ children }) {
   const [socket, setSocket] = useState();
   useEffect(() => {
     const newSocket = io(ENDPOINT);
+    newSocket.on('newMessage',(data)=> {
+      // Append the message to the chat 
+    })
     setSocket(newSocket);
   }, []);
 
