@@ -3,7 +3,7 @@ import { FreindsContext } from "../context/FriendContext";
 import { axiosAPI } from "../api/Axios";
 import { AuthContext } from "../context/AuthContext";
 
-const User = ({ name, room_id, last_message, image }) => {
+const User = ({ name, chat_id, last_message, image }) => {
   const { curChat,updateCurChat } = useContext(FreindsContext);
   const { token } = useContext(AuthContext);
 
@@ -25,7 +25,8 @@ const User = ({ name, room_id, last_message, image }) => {
   return (
     <div
       onClick={() => {
-        updateCurChat(room_id);
+        updateCurChat(chat_id);
+        console.log(chat_id);
       }}
       className="flex p-2 items-center gap-2 border-solid p-2 border-b-2 border-sky-500 cursor-pointer hover:bg-sky-700"
     >

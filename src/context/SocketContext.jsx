@@ -1,22 +1,19 @@
-import { createContext, useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import React, { createContext, useEffect, useState } from "react";
+import {io} from "socket.io-client";
 
+// Create a context for the socket
 export const SocketContext = createContext();
-const ENDPOINT = "http://localhost:9000"; //
 
-export function SocketProvidor({ children }) {
+export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState();
+
   useEffect(() => {
-    const newSocket = io(ENDPOINT);
-    newSocket.on('newMessage',(data)=> {
-      // Append the message to the chat 
-    })
+    const newSocket = io("http://localhost:9000");
     setSocket(newSocket);
   }, []);
-
   return (
-    <SocketContext.Provider value={{ socket }}>
-      {children}
+    <SocketContext.Provider value={{socket}}>
+        {children}
     </SocketContext.Provider>
   );
-}
+};

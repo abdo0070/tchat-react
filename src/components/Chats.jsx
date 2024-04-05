@@ -4,7 +4,6 @@ import { axiosAPI } from "../api/Axios";
 import { AuthContext } from "../context/AuthContext";
 import { FreindsContext } from "../context/FriendContext";
 import { SocketContext } from "./../context/SocketContext";
-import NotFreindUser from "./NotFriendUser";
 
 const Chats = () => {
   const { token } = useContext(AuthContext);
@@ -29,23 +28,17 @@ const Chats = () => {
 
   return (
     <div className="overflow-y-auto h-full">
-      {freinds?.map((f, i) => {
-        socket.emit("JoinRoom", `${f.room_id}`);
-        return f.is_freind === undefined || f.is_freind === true ? (
+      {freinds?.map((chat, i) => {
+        socket.emit("JoinRoom", `${chat.id}`);
+        return(
           <User
             key={i}
-            name={f.user_name}
-            room_id={f.room_id}
-            last_message={f.last_message || "Hey"}
+            name={chat.name}
+            chat_id={chat.id}
+            last_message={chat.last_message || "Hey"}
             image="/logo/logo-black.svg"
           />
-        ) : (
-          <NotFreindUser
-            name={f.user_name}
-            image="/logo/logo-black.svg"
-            key={i}
-          />
-        );
+        )
       })}
     </div>
   );
