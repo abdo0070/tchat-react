@@ -1,9 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { FreindsContext } from "../context/FriendContext";
 
 const Header = () => {
-  const {user} = useContext(AuthContext);
-
+  const {chatName} = useContext(FreindsContext);
   return (
     <div className="flex items-center gap-2 py-2 px-4 flex-row">
       <div className="w-[50px]">
@@ -14,7 +13,7 @@ const Header = () => {
         />
       </div>
       <div className="text-white font-bold text-lg">
-        <span>{user.user_name}</span>
+        <span>{chatName}</span>
       </div>
     </div>
   );

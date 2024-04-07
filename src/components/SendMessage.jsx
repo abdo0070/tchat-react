@@ -11,7 +11,7 @@ const SendMessage = () => {
   const [sent, setSent] = useState(false);
   useEffect(() => {
     setSent(!sent)
-  },[sent]);
+  },[]);
 
   return (
     <div className="flex bg-slate-100 justify-between p-3">

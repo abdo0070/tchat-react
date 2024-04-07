@@ -2,31 +2,39 @@ import { useContext } from "react";
 import { FreindsContext } from "../context/FriendContext";
 import { axiosAPI } from "../api/Axios";
 import { AuthContext } from "../context/AuthContext";
+import { SocketContext } from "../context/SocketContext";
 
-const User = ({ name, chat_id, last_message, image }) => {
-  const { curChat,updateCurChat } = useContext(FreindsContext);
+const User = ({ name, chat_id, user_id, last_message, image }) => {
+  const { updateCurChat } = useContext(FreindsContext);
   const { token } = useContext(AuthContext);
-
-  axiosAPI
-      .get("/rooms", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log("added the room succfully");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-
+  const { socket } = useContext(SocketContext);
   return (
     <div
       onClick={() => {
-        updateCurChat(chat_id);
-        console.log(chat_id);
+        if (chat_id === undefined) {
+          console.log("target user id " + user_id);
+          axiosAPI
+            .post(
+              "/chats",
+              {
+                freind_id: user_id,
+              },
+              {
+                withCredentials: true,
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+            )
+            .then((res) => {
+              socket.emit("JoinRoom", `${res.data.room_id}`);
+              updateCurChat(res.data.room_id,name);
+            })
+            .catch((err) => {});
+          return;
+        }
+        updateCurChat(chat_id,name);
       }}
       className="flex p-2 items-center gap-2 border-solid p-2 border-b-2 border-sky-500 cursor-pointer hover:bg-sky-700"
     >

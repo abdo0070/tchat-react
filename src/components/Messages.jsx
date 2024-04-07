@@ -11,17 +11,17 @@ const Messages = ({room_id}) => {
   const {socket} = useContext(SocketContext);
   useEffect(() => {
     axiosAPI
-      .get(`/messages/${1}`, {
+      .get(`/messages/${room_id || 0}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
         withCredentials: true,
       })
       .then((res) => {
-        setMessages(res?.data);
+        setMessages(res?.data || []);
       })
       .catch((err) => {
-        // console.log(err);
+        
       });
   }, [room_id,refresh]);
 
@@ -30,10 +30,9 @@ const Messages = ({room_id}) => {
       socket.on("newMessage", (data) => {
         // Append the message to the chat
         setRefresh(!refresh);
-        console.log("New Message Recived ...");
       });
     } catch (error) {
-      console.log(error);
+
     }
   };
 

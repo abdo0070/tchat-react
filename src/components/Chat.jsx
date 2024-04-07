@@ -7,7 +7,6 @@ import { SocketContext } from "../context/SocketContext";
 
 const Chat = () => {
   const { curChat } = useContext(FreindsContext);
-  const { socket } = useContext(SocketContext);
   useEffect(() => {
   }, []);
 

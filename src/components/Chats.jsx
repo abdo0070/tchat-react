@@ -22,7 +22,6 @@ const Chats = () => {
         updateFreinds(res.data);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -33,8 +32,9 @@ const Chats = () => {
         return(
           <User
             key={i}
-            name={chat.name}
+            name={chat.name || chat.user_name}  
             chat_id={chat.id}
+            user_id={chat.user_id}
             last_message={chat.last_message || "Hey"}
             image="/logo/logo-black.svg"
           />
