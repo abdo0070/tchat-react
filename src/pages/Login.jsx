@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "./../context/AuthContext";
 import { axiosAPI } from "../api/Axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user , token, updateToken } = useContext(AuthContext);
+  const { updateToken } = useContext(AuthContext);
   const [password, setPassword] = useState();
   const [email, setEmail] = useState();
-
-  const Login = async (e) => {
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
     e.preventDefault();
     // make the auth with the backend and set the user state
     try {
@@ -20,10 +21,10 @@ const Login = () => {
       );
       const token = res?.data?.token; // the token is global .
       // localStorage.setItem('token', token);
-       updateToken(token);
+      updateToken(token);
+      navigate("/home");
     } catch (error) {
-      alert('Wrong Email Or Password')
-      console.log(error?.response);
+      alert("Wrong Email Or Password");
     }
   };
 
@@ -36,7 +37,7 @@ const Login = () => {
           <form
             className="flex flex-col items-center gap-5"
             action=""
-            onSubmit={Login}
+            onSubmit={handleLogin}
           >
             <div className="relative text-black">
               <div className="absolute top-1 left-1 bg-white-medium rounded-full p-2 flex items-center justify-center text-blue-300">
@@ -66,6 +67,9 @@ const Login = () => {
               className="w-80 bg-sky-500 text-xl text-center text-white py-2 px-12 rounded-full focus:bg-black-dark focus:outline-none focus:ring-1 focus:ring-neon-blue focus:drop-shadow-lg hover:bg-white hover:text-sky-500 hover:border-4 hover:border-sky-500"
             />
           </form>
+          <div className="text-lg font-bold text-blue-600 hover:text-slate-600 cursor-pointer">
+            <Link to={"/register"}>Register ?</Link>
+          </div>
         </div>
         {/* Image */}
         <div className="w-1/2 rounded-3xl">

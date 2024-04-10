@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import Logo from "./Logo";
 import { AuthContext } from "../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = (props) => {
+const Navbar = () => {
+  const navigate = useNavigate();
   const { token, updateToken } = useContext(AuthContext);
   const items = [
-    { name: "Home", link: "#" },
-    { name: "Contact", link: "#" },
-    { name: "About", link: "#" },
+    { name: "Home", link: "/home" },
+    { name: "About", link: "/about" },
   ];
-
   const [open, setOpen] = useState(false);
   return (
     <div className="flex justify-between items-center px-12 h-16 lg:py-10 bg-sky-500">
@@ -22,8 +22,8 @@ const Navbar = (props) => {
         <ul className="flex flex-col items-center gap-4 lg:flex-row lg:gap-8">
           {items.map((i) => {
             return (
-              <li key={i.name} className="hover:text-orange-400">
-                <a href={i.link}>{i.name}</a>
+              <li key={i.name} className="hover:text-sky-900 cursor-pointer">
+                <Link to={i.link}>{i.name}</Link>
               </li>
             );
           })}
@@ -33,6 +33,7 @@ const Navbar = (props) => {
             <button
               onClick={() => {
                 updateToken(null);
+                navigate("/home");
               }}
               className="p-2 text-white font-bold text-lg bg-sky-300 sm:p-1"
             >
@@ -40,20 +41,25 @@ const Navbar = (props) => {
             </button>
           ) : (
             <>
-             <button className="bg-red-600 rounded-full px-2 lg:py-1">
-            Login
-          </button>
+              <button
+                onClick={() => {
+                  updateToken(null);
+                  navigate("/login");
+                }}
+                className="p-2 text-white font-bold text-lg bg-sky-300 sm:p-1"
+              >
+                Login
+              </button>
 
-            <button
-              onClick={() => {
-                updateToken(null);
-              }}
-              className="bg-orange-400 rounded-lg px-2 py-1"
-            >
-              Sign up
-            </button>
+              <button
+                onClick={() => {
+                  updateToken(null);
+                  navigate("/register");
+                }}
+                className="p-2 text-white font-bold text-lg bg-sky-300 sm:p-1">
+                Sign up
+              </button>
             </>
-           
           )}
         </div>
       </div>

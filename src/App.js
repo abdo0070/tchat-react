@@ -1,15 +1,44 @@
 import Guest from "./Layout/Guest";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 import Home from "./Layout/Home";
 import Navbar from "./components/Navbar";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import AboutPage from "./pages/About";
 
 function App() {
-  const { token, updateToken } = useContext(AuthContext);
+  const router = createBrowserRouter([
+    {
+      path : "/home",
+      element : <Home />
+    },
+    {
+      path : "/About",
+      element : <AboutPage />
+    },
+    {
+      path : "/",
+      element : <Guest />,
+      children : [
+        {
+          path : "/",
+          element : <Login />
+        },
+        {
+          path : "/login",
+          element : <Login />
+        },
+        {
+          path : "/register",
+          element : <Register />
+        }
+      ]
+    }
+  ]);
   return (
     <div className="h-screen">
-      <Navbar />
-      {token === null ? <Guest /> : <Home />}
+      <RouterProvider router={router}>
+      </RouterProvider>
     </div>
   );
 }

@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import Login from "../pages/Login";
-import { AuthContext } from "../context/AuthContext";
-import { axiosAPI } from "../api/Axios";
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const Guest = (props) => {
   return (
     <>
-      <Login />
+      <Navbar />
+      <Outlet />
     </>
   );
 };

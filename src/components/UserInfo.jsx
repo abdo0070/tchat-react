@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const UserInfo = () => {
-  const {user} = useContext(AuthContext);
+  const {user,updateToken} = useContext(AuthContext);
   return (
     <div className="flex items-center p-2 bg-sky-600 justify-between">
       <div className="flex items-center gap-2">
@@ -19,7 +19,9 @@ const UserInfo = () => {
       </div>
 
       <div className="p-2 text-white font-bold text-lg bg-sky-300">
-        <button>Logout</button>
+        <button onClick={() => {
+          updateToken(null)
+        }}>Logout</button>
       </div>
     </div>
   );
