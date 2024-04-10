@@ -8,7 +8,7 @@ export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState();
 
   useEffect(() => {
-    const newSocket = io("http://localhost:9000");
+    const newSocket = io("https://tchat-api.onrender.com");
     setSocket(newSocket);
   }, []);
   return (
