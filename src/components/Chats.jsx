@@ -28,6 +28,7 @@ const Chats = () => {
   return (
     <div className="overflow-y-auto h-full">
       {freinds?.map((chat, i) => {
+        console.log(chat);
         socket.emit("JoinRoom", `${chat.id}`);
         return(
           <User
@@ -36,7 +37,7 @@ const Chats = () => {
             chat_id={chat.id}
             user_id={chat.user_id}
             last_message={chat.last_message || "Hey"}
-            image="/logo/logo-black.svg"
+            image={chat.image}
           />
         )
       })}

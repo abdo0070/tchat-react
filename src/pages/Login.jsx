@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "./../context/AuthContext";
 import { axiosAPI } from "../api/Axios";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert';
 
 const Login = () => {
   const { updateToken } = useContext(AuthContext);
@@ -24,7 +25,12 @@ const Login = () => {
       updateToken(token);
       navigate("/home");
     } catch (error) {
-      alert("Wrong Email Or Password");
+      Swal({
+        title: 'Error!',
+        text: 'Invalid email or password.',
+        icon: 'error',
+        button: 'OK',
+      });
     }
   };
 

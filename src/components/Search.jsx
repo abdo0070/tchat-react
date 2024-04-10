@@ -9,7 +9,6 @@ const Search = () => {
   const handleSearch = async (e) => {
     try {
       const data = await searchForFreind(e.target.value,token);
-      console.log(data);
       updateFreinds(data || []);
     } catch (error) {
       //onsole.log(error);

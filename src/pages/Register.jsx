@@ -1,20 +1,17 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "./../context/AuthContext";
+import React, { useState } from "react";
 import { axiosAPI } from "../api/Axios";
 import { Link, useNavigate } from "react-router-dom";
 import AvatarSelect from "../components/AvatarSelect";
-
+import Swal from 'sweetalert';
 const avatars = [
   "/logo/logo-black.svg",
   "/logo/logo-color.svg",
   "/logo/logo-no-background.svg",
   "/logo/logo-white.svg",
-  // Add more avatar URLs as needed
 ];
 
 const Register = () => {
   const [selectedAvatar, setSelectedAvatar] = useState(null);
-  const { updateToken } = useContext(AuthContext);
   const [password, setPassword] = useState();
   const [userName, setUserName] = useState();
   const [email, setEmail] = useState();
@@ -26,20 +23,28 @@ const Register = () => {
     e.preventDefault()
     // Make POST Request For the Register => navigate to home .
     try {
-      const res = await axiosAPI.post(
+      await axiosAPI.post(
         "/register",
-        { "user_name": userName, email, password , "image" : selectedAvatar },
+        { "user_name": userName, email, password , "image" : selectedAvatar || "/logo/logo-black.svg"},
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         }
       );
-      const token = res?.data?.token; // the token is global .
-      // localStorage.setItem('token', token);
-      updateToken(token);
-      navigate("/home");
+      Swal({
+        title: 'Success!',
+        text: 'You have successfully registered.',
+        icon: 'success',
+        button: 'OK',
+      }).then(() => {
+        navigate("/login");
+      });
     } catch (error) {
-      console.log(error);
-      alert("Existing username");
+      Swal({
+        title: 'Error!',
+        text: 'Existing username or email !',
+        icon: 'error',
+        button: 'OK',
+      });
     }
 
   }
