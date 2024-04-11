@@ -9,39 +9,41 @@ import AboutPage from "./pages/About";
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/home",
-      element: <Home />,
+      path : "/home",
+      element : <Home />
     },
     {
-      path: "/About",
-      element: <AboutPage />,
+      path : "/About",
+      element : <AboutPage />
     },
     {
-      path: "*",
-      element: <Home />,
-    },
+      path : "*",
+      element : <Home />
+    }
+    ,
     {
-      path: "/",
-      element: <Guest />,
-      children: [
+      path : "/",
+      element : <Guest />,
+      children : [
         {
-          path: "/",
-          element: <Login />,
+          path : "/",
+          element : <Login />
         },
         {
-          path: "/login",
-          element: <Login />,
+          path : "/login",
+          element : <Login />
         },
         {
-          path: "/register",
-          element: <Register />,
-        },
-      ],
-    },
+          path : "/register",
+          element : <Register />
+        }
+      ]
+    }
   ]);
   return (
     <div className="h-screen">
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router}>
+      </RouterProvider>
     </div>
   );
 }
