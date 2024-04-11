@@ -19,12 +19,14 @@ const Navbar = () => {
   return (
     <div className="flex justify-between items-center px-2 md:px-12 h-16 lg:py-10 bg-sky-500">
       <div className="flex items-center gap-4">
-        <button
-          className="sm:hidden bg-gray-800 text-white px-1 py-1 rounded"
-          onClick={toggleSidebar}
-        >
-          <i className="fa-solid fa-list"></i>
-        </button>
+        {token && (
+          <button
+            className="sm:hidden bg-gray-800 text-white px-1 py-1 rounded"
+            onClick={toggleSidebar}
+          >
+            <i className="fa-solid fa-list"></i>
+          </button>
+        )}
         <Logo />
       </div>
       <div
