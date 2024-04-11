@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token' || null));
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(localStorage.getItem('user'));
   const [sidebarVisible,setSidebarVisible] = useState(true);
   const updateToken = (newToken) => {
     localStorage.setItem('token',newToken);
@@ -12,6 +12,7 @@ const AuthProvider = ({ children }) => {
     // decode the token
     if (newToken != null) {
       const decoded = jwtDecode(newToken);
+      localStorage.setItem('user',decoded);
       setUser(decoded);
       return;
     }
