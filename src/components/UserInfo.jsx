@@ -1,10 +1,12 @@
-import { useContext} from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const UserInfo = () => {
-  const {user,updateToken} = useContext(AuthContext);
+  const { user} = useContext(AuthContext);
+  // Function to toggle sidebar visibility
+  
   return (
-    <div className="flex items-center p-2 bg-sky-600 justify-between">
+    <div className="flex items-center p-2 bg-sky-600 gap-4">
       <div className="flex items-center gap-2">
         <div className="w-[50px]">
           <img
@@ -13,15 +15,9 @@ const UserInfo = () => {
             alt=""
           />
         </div>
-        <div className="text-white font-bold text-lg">
+        <div className="text-xs text-white font-bold lg:text-lg">
           <span>{user?.user_name}</span>
         </div>
-      </div>
-
-      <div className="p-2 text-white font-bold text-lg bg-sky-300">
-        <button onClick={() => {
-          updateToken(null)
-        }}>Logout</button>
       </div>
     </div>
   );

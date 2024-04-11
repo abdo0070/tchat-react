@@ -5,15 +5,28 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { token, updateToken } = useContext(AuthContext);
+  const { token, updateToken, sidebarVisible, updateSidebar } =
+    useContext(AuthContext);
   const items = [
     { name: "Home", link: "/home" },
     { name: "About", link: "/about" },
   ];
+  const toggleSidebar = () => {
+    updateSidebar(!sidebarVisible);
+  };
+
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex justify-between items-center px-12 h-16 lg:py-10 bg-sky-500">
-      <Logo />
+    <div className="flex justify-between items-center px-2 md:px-12 h-16 lg:py-10 bg-sky-500">
+      <div className="flex items-center gap-4">
+        <button
+          className="sm:hidden bg-gray-800 text-white px-1 py-1 rounded"
+          onClick={toggleSidebar}
+        >
+          <i className="fa-solid fa-list"></i>
+        </button>
+        <Logo />
+      </div>
       <div
         className={`absolute top-16 left-0 text-white max-lg:bg-slate-500 w-full flex flex-col gap-4 py-2 text-lg font-semibold items-center lg:static lg:flex-row lg:justify-between lg:mx-10 ${
           open ? "top-[16] " : "top-[-490px]"
@@ -56,7 +69,8 @@ const Navbar = () => {
                   updateToken(null);
                   navigate("/register");
                 }}
-                className="p-2 text-white font-bold text-lg bg-sky-300 sm:p-1">
+                className="p-2 text-white font-bold text-lg bg-sky-300 sm:p-1"
+              >
                 Sign up
               </button>
             </>

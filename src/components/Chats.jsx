@@ -28,7 +28,6 @@ const Chats = () => {
   return (
     <div className="overflow-y-auto h-full">
       {freinds?.map((chat, i) => {
-        console.log(chat);
         socket.emit("JoinRoom", `${chat.id}`);
         return(
           <User

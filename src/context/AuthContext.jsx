@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token' || null));
   const [user, setUser] = useState();
+  const [sidebarVisible,setSidebarVisible] = useState(true);
   const updateToken = (newToken) => {
     localStorage.setItem('token',newToken);
     setToken(newToken);
@@ -16,8 +17,11 @@ const AuthProvider = ({ children }) => {
     }
     setUser(null);
   };
+  const updateSidebar = (flag) => {
+    setSidebarVisible(flag)
+  }
   return (
-    <AuthContext.Provider value={{ user , token, updateToken }}>
+    <AuthContext.Provider value={{ user , token, updateToken , updateSidebar , sidebarVisible}}>
       {children}
     </AuthContext.Provider>
   );
