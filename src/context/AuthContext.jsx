@@ -21,8 +21,12 @@ const AuthProvider = ({ children }) => {
   const updateSidebar = (flag) => {
     setSidebarVisible(flag)
   }
+  const refresh = () => {
+    const storedToken = localStorage.getItem('token');
+    updateToken(storedToken || null);
+  }
   return (
-    <AuthContext.Provider value={{ user , token, updateToken , updateSidebar , sidebarVisible}}>
+    <AuthContext.Provider value={{ user , refresh , token, updateToken , updateSidebar , sidebarVisible}}>
       {children}
     </AuthContext.Provider>
   );

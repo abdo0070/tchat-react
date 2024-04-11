@@ -1,4 +1,4 @@
-import {useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Chat from "../components/Chat";
 import Sidebar from "../components/Sidebar";
 import { FreindProvidor } from "../context/FriendContext";
@@ -8,15 +8,16 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const Home = () => {
-  const { token, sidebarVisible } = useContext(AuthContext);
+  const { token, refresh , sidebarVisible } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     // if the token is invalid then redirect the user to Guest Layout
+    refresh();
     if (token === null || token === undefined) {
       navigate("/login");
     }
-  }, [token]);
+  }, []);
 
   return (
     <SocketProvider>
