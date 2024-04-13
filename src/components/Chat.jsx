@@ -3,8 +3,7 @@ import Header from "./Header";
 import Messages from "./Messages";
 import SendMessage from "./SendMessage";
 import { FreindsContext } from "../context/FriendContext";
-import { SocketContext } from "../context/SocketContext";
-import MessageProvidor from "../context/MessageContext";
+import {MessageProvidor} from "../context/MessageContext";
 
 const Chat = () => {
   const { curChat } = useContext(FreindsContext);
