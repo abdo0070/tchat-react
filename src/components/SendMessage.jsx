@@ -15,9 +15,6 @@ const SendMessage = () => {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          if (messageInput === undefined || messageInput === null) {
-            return;
-          }
           socket.emit("message", `${curChat}`, {
             messageInput,
             user_id: user.id,
