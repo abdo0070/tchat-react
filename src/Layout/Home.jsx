@@ -17,7 +17,7 @@ const Home = () => {
     if (token === null || token === undefined) {
       navigate("/login");
     }
-  }, []);
+  }, [token]);
 
   return (
     <SocketProvider>

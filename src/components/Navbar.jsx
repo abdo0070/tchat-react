@@ -14,6 +14,9 @@ const Navbar = () => {
   const toggleSidebar = () => {
     updateSidebar(!sidebarVisible);
   };
+  useEffect(() => { 
+    console.log(token);
+   },[token]);
 
   const [open, setOpen] = useState(false);
   return (

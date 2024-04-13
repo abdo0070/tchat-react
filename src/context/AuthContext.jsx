@@ -7,20 +7,17 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(localStorage.getItem("user"));
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const updateToken = (newToken) => {
-    localStorage.setItem("token", newToken);
-    setToken(newToken);
-    // decode the token
-    if (newToken !== null) {
-      console.log(newToken);
-      const decoded = jwtDecode(newToken);
-      localStorage.setItem("user", decoded);
-      setUser(decoded);
+    if (newToken === null) {
+      logout();
       return;
     }
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    setUser(null);
+    const decoded = jwtDecode(newToken);
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
+    localStorage.setItem("user", decoded);
+    setUser(decoded);
   };
+
   const updateSidebar = (flag) => {
     setSidebarVisible(flag);
   };
@@ -36,7 +33,7 @@ const AuthProvider = ({ children }) => {
   const validateToken = (t) => {
     try {
       const decoded = jwtDecode(t);
-      if (t && decoded.exp < Date.UTC() - decoded.iat) {
+      if (t && decoded.exp * 1000 > new Date().getTime()) {
         // Valid Token
         return true;
       } else {
@@ -48,6 +45,12 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    setToken(null);
+  };
   return (
     <AuthContext.Provider
       value={{
