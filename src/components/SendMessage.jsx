@@ -8,11 +8,8 @@ const SendMessage = () => {
   const { socket } = useContext(SocketContext);
   const { curChat } = useContext(FreindsContext);
   const { user } = useContext(AuthContext);
-  const { messageInput, updateMessageInput } = useContext(MessageContext);
-  const [sent, setSent] = useState(false);
-  useEffect(() => {
-    setSent(!sent);
-  }, []);
+  const { messageInput, updateMessageInput, sent , updateSent } = useContext(MessageContext);
+  useEffect(() => {}, [sent]);
 
   return (
     <div className="flex bg-slate-100 justify-between p-3">
@@ -37,7 +34,7 @@ const SendMessage = () => {
             room_id: curChat,
           });
           updateMessageInput("");
-          setSent(!sent);
+          updateSent();
         }}
       >
         SEND
