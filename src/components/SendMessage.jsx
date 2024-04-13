@@ -1,4 +1,4 @@
-import { useContext , useState } from "react";
+import { useContext, useState } from "react";
 import { SocketContext } from "../context/SocketContext";
 import { FreindsContext } from "./../context/FriendContext";
 import { AuthContext } from "../context/AuthContext";
@@ -10,13 +10,18 @@ const SendMessage = () => {
   const [messageInput, setMessageInput] = useState("");
 
   return (
-    <div >
-      <form className="flex bg-slate-100 justify-between p-3"
+    <div>
+      <form
+        className="flex bg-slate-100 justify-between p-3"
         action=""
-        onSubmit={async (e) => {
+        onSubmit={(e) => {
           e.preventDefault();
-          await socket.emit("message", `${curChat}`, {
-            messageInput,
+          const msgText = messageInput.trim();
+          if (msgText === undefined || msgText === null) {
+            return;
+          }
+          socket.emit("message", `${curChat}`, {
+            message: messageInput,
             user_id: user.id,
             room_id: curChat,
           });
