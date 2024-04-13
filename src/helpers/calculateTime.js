@@ -3,7 +3,9 @@ export function calcTime(timestamp) {
   const givenTimestamp = new Date(timestamp);
 
   // Current time
-  const currentTime = new Date() + (68 * 60 * 1000);
+  let currentTime = new Date();
+  // Add 68 minutes to the current time
+  currentTime.setMinutes(currentTime.getMinutes() + 68);
 
   // Calculate the difference in minutes
   const timeInMinutes = (currentTime - givenTimestamp) / (1000 * 60);
@@ -18,6 +20,6 @@ export function calcTime(timestamp) {
     return `${parseInt(days)} days ago`;
   } else {
     const weeks = timeInMinutes / (60 * 24 * 7);
-    return `${parseInt(weeks)} weels ago`;
+    return `${parseInt(weeks)} weeks ago`;
   }
 }
