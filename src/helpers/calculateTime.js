@@ -3,7 +3,7 @@ export function calcTime(timestamp) {
   const givenTimestamp = new Date(timestamp);
 
   // Current time
-  const currentTime = new Date() + 68 * 60 * 1000;
+  const currentTime = new Date() + (68 * 60 * 1000);
 
   // Calculate the difference in minutes
   const timeInMinutes = (currentTime - givenTimestamp) / (1000 * 60);
