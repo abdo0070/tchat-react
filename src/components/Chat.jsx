@@ -3,12 +3,10 @@ import Header from "./Header";
 import Messages from "./Messages";
 import SendMessage from "./SendMessage";
 import { FreindsContext } from "../context/FriendContext";
-import {MessageProvidor} from "../context/MessageContext";
+import MessageProvidor from "../context/MessageContext";
 
 const Chat = () => {
   const { curChat } = useContext(FreindsContext);
-  useEffect(() => {}, []);
-
   return (
     <div className="h-full flex flex-col">
       <Header />
