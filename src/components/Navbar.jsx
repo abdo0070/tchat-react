@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { token, updateToken,refresh, sidebarVisible, updateSidebar } =
+  const { token, updateToken , sidebarVisible, updateSidebar } =
     useContext(AuthContext);
   const items = [
     { name: "Home", link: "/home" },
@@ -15,7 +15,6 @@ const Navbar = () => {
     updateSidebar(!sidebarVisible);
   };
   useEffect(() => { 
-    console.log(token);
    },[token]);
 
   const [open, setOpen] = useState(false);
