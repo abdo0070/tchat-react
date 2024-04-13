@@ -17,7 +17,7 @@ const SendMessage = () => {
         onSubmit={(e) => {
           e.preventDefault();
           const msgText = messageInput.trim();
-          if (msgText === undefined || msgText === null) {
+          if (msgText === undefined || msgText === null || msgText === "") {
             return;
           }
           socket.emit("message", `${curChat}`, {
@@ -26,6 +26,7 @@ const SendMessage = () => {
             room_id: curChat,
           });
           setMessageInput("");
+          document.getElementById('myInput').value = '';
         }}
       >
         <input
@@ -35,6 +36,7 @@ const SendMessage = () => {
           onChange={(e) => {
             setMessageInput(e.target.value);
           }}
+          id="myInput"
         />
         <button className="p-2 w-28 text-white bg-cyan-500 mr-6" type="submit">
           SEND
