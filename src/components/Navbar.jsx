@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "./Logo";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { token, updateToken, sidebarVisible, updateSidebar } =
+  const { token, updateToken,refresh, sidebarVisible, updateSidebar } =
     useContext(AuthContext);
   const items = [
     { name: "Home", link: "/home" },
