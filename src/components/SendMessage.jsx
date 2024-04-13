@@ -16,6 +16,7 @@ const SendMessage = () => {
       <input
         className="outline-none bg-transparent w-full text-lg font-bold"
         placeholder="Type..."
+        value={messageInput}
         type="text"
         onChange={(e) => {
           updateMessageInput(e.target.value);
