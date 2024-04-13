@@ -10,17 +10,16 @@ const SendMessage = () => {
   const [messageInput, setMessageInput] = useState("");
 
   return (
-    <div className="flex bg-slate-100 justify-between p-3">
-      <form
+    <div >
+      <form className="flex bg-slate-100 justify-between p-3"
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          const msgText = messageInput.trim();
-          if (msgText === undefined || msgText === null) {
+          if (messageInput === undefined || messageInput === null) {
             return;
           }
           socket.emit("message", `${curChat}`, {
-            msgText,
+            messageInput,
             user_id: user.id,
             room_id: curChat,
           });
@@ -30,7 +29,6 @@ const SendMessage = () => {
         <input
           className="outline-none bg-transparent w-full text-lg font-bold"
           placeholder="Type..."
-          value={messageInput}
           type="text"
           onChange={(e) => {
             setMessageInput(e.target.value);
