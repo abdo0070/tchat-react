@@ -2,16 +2,17 @@ import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../context/SocketContext";
 import { FreindsContext } from "./../context/FriendContext";
 import { AuthContext } from "../context/AuthContext";
+import { MessageContext } from "../context/MessageContext";
 
 const SendMessage = () => {
   const { socket } = useContext(SocketContext);
   const { curChat } = useContext(FreindsContext);
   const { user } = useContext(AuthContext);
-  const [message, setMessage] = useState();
+  const { messageInput, updateMessageInput } = useContext(MessageContext);
   const [sent, setSent] = useState(false);
   useEffect(() => {
-    setSent(!sent)
-  },[]);
+    setSent(!sent);
+  }, []);
 
   return (
     <div className="flex bg-slate-100 justify-between p-3">
@@ -20,18 +21,23 @@ const SendMessage = () => {
         placeholder="Type..."
         type="text"
         onChange={(e) => {
-          setMessage(e.target.value);
+          updateMessageInput(e.target.value);
         }}
       />
       <button
         className="p-2 w-28 text-white bg-cyan-500 mr-6"
         onClick={() => {
-          socket.emit("message",`${curChat}`,{
-            message,
+          const msgText = messageInput.trim();
+          if (msgText === undefined || msgText === null) {
+            return;
+          }
+          socket.emit("message", `${curChat}`, {
+            msgText,
             user_id: user.id,
             room_id: curChat,
           });
-          setSent(!sent)
+          updateMessageInput("");
+          setSent(!sent);
         }}
       >
         SEND

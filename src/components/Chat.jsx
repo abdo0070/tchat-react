@@ -4,18 +4,19 @@ import Messages from "./Messages";
 import SendMessage from "./SendMessage";
 import { FreindsContext } from "../context/FriendContext";
 import { SocketContext } from "../context/SocketContext";
+import MessageProvidor from "../context/MessageContext";
 
 const Chat = () => {
   const { curChat } = useContext(FreindsContext);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
- 
   return (
     <div className="h-full flex flex-col">
       <Header />
       <Messages room_id={curChat} />
-      <SendMessage />
+      <MessageProvidor>
+        <SendMessage />
+      </MessageProvidor>
     </div>
   );
 };
