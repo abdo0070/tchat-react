@@ -13,9 +13,9 @@ const SendMessage = () => {
     <div >
       <form className="flex bg-slate-100 justify-between p-3"
         action=""
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          socket.emit("message", `${curChat}`, {
+          await socket.emit("message", `${curChat}`, {
             messageInput,
             user_id: user.id,
             room_id: curChat,
